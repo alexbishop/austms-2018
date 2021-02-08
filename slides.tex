@@ -1,0 +1,641 @@
+\documentclass[11pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[australian]{babel}
+
+\usepackage[style=verbose,citestyle=authortitle-comp]{biblatex}
+
+\addbibresource{slides.bib}
+\usepackage{xpatch}
+\xapptobibmacro{cite}{\setunit{\nametitledelim}\printfield{year}}{}{}
+%\AtBeginBibliography{\footnotesize}
+\let\oldfootnotesize\footnotesize
+\renewcommand*{\footnotesize}{\oldfootnotesize\tiny}
+
+\usepackage{csquotes}
+
+\usepackage{amsthm,amsfonts,amssymb,amsmath,mathtools,graphicx}
+
+\usepackage{microtype}
+
+\usetheme{Copenhagen}
+
+
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\author{Alex Bishop\\\vspace{.6em}Supervisor: A/Prof Murray Elder}
+%\title{Bounded Automata Groups are co-ET0L}
+\title{Formal Languages in Group co-Word Problems}
+%\subtitle{}
+%\logo{}
+\institute{University of Technology Sydney}
+\date{Wednesday 5 December 2018}%16:30 Wed 5 Dec
+%\subject{}
+%\setbeamercovered{transparent}
+%\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+	\maketitle
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Funding Acknowledgement}
+\begin{center}
+	\includegraphics[width=0.8\linewidth]{figure/austms}
+	
+	\vspace{2em}
+	
+	\large
+	This talk is funded by the AustMS Student Support Scheme
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\begin{center}
+	{\LARGE
+	
+	\url{https://arxiv.org/abs/1811.10157}
+	
+}
+\pause
+\vspace{1.5cm}
+	
+	\textbf{\Large Bounded Automata Groups are co-ET0L}
+	
+\end{center}
+	{
+		\textit{Abstract:}
+		Holt and R\"over proved that finitely generated bounded automata groups have indexed co-word problem. Here we sharpen this result to show they are in fact co-ET0L.
+	}
+	
+	\phantom{\cite{holt2006}}
+	
+%	\only<2->{
+%		
+%		\vspace{1em}
+%		
+%		\emph{or}
+%		
+%		\vspace{1em}
+%		
+%		\url{https://alexbishop.github.io}
+%	}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}
+%\frametitle{Group}
+%
+%\begin{block}{Definition: Group}
+%
+%A group $G$ is such that for each $a,b,c \in G$ we have:
+%
+%\begin{itemize}
+%	\item \makebox[6.2em][l]{\textbf{Closure:}}
+%	    $a \cdot b \in G$ 
+%	\item \makebox[6.2em][l]{\textbf{Associativity:}}
+%	    $a \cdot b \cdot c = (a \cdot b) \cdot c = a \cdot (b \cdot c)$
+%	\item \makebox[6.2em][l]{\textbf{Identity:}}
+%		$1 \cdot a = a \cdot 1 = a$
+%	\item \makebox[6.2em][l]{\textbf{Inverses:}}
+%		$a \cdot a^{-1} = a^{-1} \cdot a = 1$
+%\end{itemize}
+%
+%\end{block}
+%
+%\begin{block}<2->{Definition: Finitely Generated Group}
+%
+%A group is finitely generated, if there exists a finite $X \subseteq G$, such that for each $a \in G$ we have some $y_1, y_2,\dots, y_n \in X \cup X^{-1}$ so that
+%\[
+%	a = y_1 \cdot y_2 \cdots y_n.
+%\]
+%Then, $X$ is called a generating set.
+%
+%\end{block}
+%
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Co-Word Problems}
+
+\begin{block}{Definition: Co-Word Problem}
+Given a group $G$ with finite generating set $X$, the co-word problem
+\[
+	\mathrm{coW}(G,X)
+	\coloneqq
+	\left\{
+	w \in \left(X \cup X^{-1} \right)^\star
+	\, :\,
+	w \neq_G 1
+	\right\}
+\]
+is the set of all words not representing $1 \in G$.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Co-Word Problems}
+\framesubtitle{\large Previously known}
+
+\begin{definition}
+\[
+\mathrm{coW}(G,X)
+\coloneqq
+\left\{
+w \in \left(X \cup X^{-1} \right)^\star
+\, :\,
+w \neq_G 1
+\right\}
+\]
+\end{definition}
+
+\vspace*{1em}
+
+It is natural to consider the computational complexity of such sets by their formal language class.
+For example, a group has
+
+\begin{itemize}
+	\item
+	regular co-word problem iff it's finite\footcite{anisimov1971}; and
+	
+	\item
+	deterministic context-free co-word problem iff it's virt.\@ free\footcite{muller1983}\textsuperscript{,}\footcite{muller1985}
+	
+	\item
+	deterministic $n$-counter iff it is virt.\@ $\mathbb{Z}^n$\!\!\!\phantom{m}\footcite{elder2008}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+\frametitle{Co-Word Problems}
+\framesubtitle{\large Previously known \textit{cont.}}
+
+
+\begin{definition}
+	\[
+	\mathrm{coW}(G,X)
+	\coloneqq
+	\left\{
+	w \in \left(X \cup X^{-1} \right)^\star
+	\, :\,
+	w \neq_G 1
+	\right\}
+	\]
+\end{definition}
+
+\vspace*{1em}
+
+It is also known that,
+
+\begin{itemize}
+	\item finitely generated subgroups of Thompson's group $V$ are have context-free co-word problem\footcite{lehnert2007}
+	
+	\item bounded automata groups have indexed co-word problem\footcite{holt2006}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Co-Word Problems}
+\framesubtitle{\large Invariance under Generating set}
+
+\begin{definition}
+	\[
+	\mathrm{coW}(G,X)
+	\coloneqq
+	\left\{
+	w \in \left(X \cup X^{-1} \right)^\star
+	\, :\,
+	w \neq_G 1
+	\right\}
+	\]
+\end{definition}
+
+\vspace*{1em}
+
+We are only interested in a class $\mathcal{C}$ of formal language language if it is closed under inverse word homomorphism.
+\pause
+\[
+	\varphi: X \to Y^\star
+\]
+which we extend to a map from $X^\star \to Y^\star$.
+
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Co-Word Problems}
+\framesubtitle{\large Invariance under Generating set}
+
+\begin{definition}
+	\[
+	\mathrm{coW}(G,X)
+	\coloneqq
+	\left\{
+	w \in \left(X \cup X^{-1} \right)^\star
+	\, :\,
+	w \neq_G 1
+	\right\}
+	\]
+\end{definition}
+
+\vspace*{1em}
+
+We are only interested in a class $\mathcal{C}$ of formal language language if it is closed under inverse word homomorphism.
+\[
+\varphi: X \to Y^\star
+\]
+which we extend to a map from $X^\star \to Y^\star$.
+
+\ \\
+
+For such classes, if $\mathrm{coW}(G,X)$ is in $\mathcal{C}$, then
+$\mathrm{coW}(G,Y)$ is in $\mathcal{C}$ for each finite generating set $Y$.\footcite{holt2005}
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Languages}
+%\begin{center}
+%	\includegraphics[width=\linewidth]{figure/lang}
+%\end{center}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{Regular Co-Word Problem}
+%give an example of a finite-state machine which corresponds to the co-word problem of a finite group.
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automorphisms of a Rooted Tree $\mathrm{Aut}(\mathcal{T}_d)$}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/labelledTree}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automorphisms of a Rooted Tree $\mathrm{Aut}(\mathcal{T}_d)$}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/labelledTree1}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automorphisms of a Rooted Tree $\mathrm{Aut}(\mathcal{T}_d)$}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/labelledTree2}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automata Automorphism}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/girgb}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automata Automorphism}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/girgb2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automata Automorphism}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/girgb3}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automata Automorphism}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/girgb4}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Automata Automorphism}
+\hspace{2em}\includegraphics[width=.8\linewidth]{figure/girgb5}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Bounded Automata Groups}
+%\framesubtitle{\large Automata Automorphism}
+%\hspace{2em}\includegraphics[width=\linewidth]{figure/girgorchuk}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Bounded Automaton Automorphisms $\mathcal{D}(\mathcal{T}_d)$}
+\begin{definition}
+A tree automorphism $\alpha \in \mathrm{Aut}(\mathcal{T}_d)$ is called \emph{bounded} if there exists a constant $N = N(\alpha) \in \mathbb{N}$ such that, for any level of the tree $\mathcal{T}_d$, the action of $\alpha$ is trivial for all but up-to $N$ sub-trees.
+\end{definition}
+
+\begin{itemize}
+	\item<2-> We call a group bounded automata if it all its elements are bounded automaton automorphisms
+	
+	\item<3-> It is enough to prove that the generating set only contains bounded automaton automorphisms
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Finitary Automorphisms $\mathrm{Fin}(\mathcal{T}_d)$}
+
+\includegraphics[width=.45\linewidth]{figure/finitaryA}
+\hfill
+\includegraphics[width=.45\linewidth]{figure/finitaryB}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+\framesubtitle{\large Directed Automorphisms $\mathrm{Dir}(\mathcal{T}_d)$}
+
+\centering
+
+\includegraphics[height=4.5cm]{figure/directedX}
+\hspace*{-3em}
+\includegraphics[height=4.5cm]{figure/directedY}
+\includegraphics[height=4.5cm]{figure/directedZ}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bounded Automata Groups}
+
+\begin{block}{Theorem: (Sidki; 2000)}
+	The group of all bounded automata automorphisms is generated by the set of finitary and directed automata automorphisms.
+\end{block}
+\phantom{\footcite{sidki2000}}
+
+Let $G \subseteq \mathcal{D}(\mathcal{T}_d)$ with finite generating set $X$.
+We can define a map
+\vspace{-1em}
+\[
+\varphi:
+X
+\to
+\left(
+\mathrm{Fin}(\mathcal{T}_d) \cup \mathrm{Dir}(\mathcal{T}_d)
+\right)^\star
+\]
+
+\vspace{-1em}
+so that $x =_{\mathcal{D}(\mathcal{T}_d)} \varphi(x)$ for each $x \in X$.
+Let
+\vspace{-1em}
+\begin{multline*}
+Y
+=
+\Big\{
+\alpha \in \mathrm{Fin}(\mathcal{T}_d) \cup \mathrm{Dir}(\mathcal{T}_d) 
+\,:\,
+\alpha \text{ is a factor of } \varphi(x)\\ \text{ for some } x \in X
+\Big\}.
+\end{multline*}
+
+\vspace{-1em}
+Then, $\mathrm{coW}(G,X)$ is the inverse image of $\mathrm{coW}(G,Y)$ w.r.t.\@ $\varphi$.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{ET0L}
+
+We have two \emph{alphabets},
+
+\begin{itemize}
+	\item \makebox[0.9em][l]{$\Sigma$} --- alphabet of terminals; and
+	\item \makebox[0.9em][l]{$V$}      --- alphabet of non-terminals.
+\end{itemize}
+
+\visible<2->{We define a \emph{table} as finite set of variable replacements}
+\begin{example}<3->
+Let $\Sigma = \{a,b\}$ and $V = \{S,A,B\}$, then the following are tables
+\[
+\alpha \, : \,
+	\left\{
+	\begin{aligned}
+		S &\to SS\\
+		S &\to S\\
+		S &\to AB\\
+		A &\to A\\
+		B &\to B
+	\end{aligned}
+	\right.
+	\qquad
+\beta \, : \,
+	\left\{
+	\begin{aligned}
+		S &\to S\\
+		A &\to aA\\
+		B &\to bB
+	\end{aligned}
+	\right.
+	\qquad
+\gamma \, : \,
+	\left\{
+	\begin{aligned}
+		S &\to S \\
+		A &\to \varepsilon \\
+		B &\to \varepsilon
+	\end{aligned}
+	\right.
+\]
+\end{example}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{ET0L\phantom{\footcite{rozenberg1973}}}
+
+\begin{example}
+	Let $\Sigma = \{a,b\}$ and $V = \{S,A,B\}$, then the following are tables
+	\[
+	\alpha \, : \,
+	\left\{
+	\begin{aligned}
+	S &\to SS\\
+	S &\to S\\
+	S &\to AB\\
+	A &\to A\\
+	B &\to B
+	\end{aligned}
+	\right.
+	\qquad
+	\beta \, : \,
+	\left\{
+	\begin{aligned}
+	S &\to S\\
+	A &\to aA\\
+	B &\to bB
+	\end{aligned}
+	\right.
+	\qquad
+	\gamma \, : \,
+	\left\{
+	\begin{aligned}
+	S &\to S \\
+	A &\to \varepsilon \\
+	B &\to \varepsilon
+	\end{aligned}
+	\right.
+	\]
+\end{example}
+
+We then apply tables as 
+\begin{multline*}
+	S
+	\visible<1->{\to^\alpha SS}
+	\visible<2->{\to^\alpha SS AB}
+	\visible<3->{\to^\alpha AB AB AB}
+	\visible<4->{\to^\beta  aA bB aA bB aA bB} \\
+	\visible<5->{\to^\beta  aaA bbB aaA bbB aaA bbB}
+	\visible<6->{\to^\gamma aa bb aa bb aa bb}
+\end{multline*}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why is ET0L Interesting?}
+
+The solutions to equations\footcite{ciobanu2016a}\textsuperscript{,}\footcite{diekert2016}\textsuperscript{,}\footcite{diekert2017}
+\begin{itemize}
+\item 
+in free monoids (with twisting) is EDT0L
+
+\item
+in (virtually) free groups is EDT0L
+
+\item
+in hyperbolic groups is ET0L
+\textit{(Ciobanu, Elder)}
+
+
+
+\end{itemize}
+
+\vspace*{1em}
+
+Primitive element in $F_2$ are EDT0L.\footcite{ciobanu2018}
+
+\vspace*{1em}
+
+There are E(D)T0L languages of intermediate growth.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}
+%\frametitle{CSPD}
+%TODO
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Result}
+
+\begin{theorem}[B, Elder]
+	Every finitely generated bounded automata group has an ET0L co-word problem.
+\end{theorem}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Some Questions}
+
+\begin{block}{Q: co-ET0L Groups}
+	Is there a `nice' classification of co-ET0L groups?
+\end{block}
+
+\vspace*{1em}
+
+\begin{block}{Q: co-Context-Free Groups}
+	Is there a `nice' classification of co-context-free groups?
+\end{block}
+
+\vspace*{1em}
+
+\begin{block}{Q: Word Problems}
+	Is there a group with ET0L word problem that isn't virtually free?
+\end{block}
+
+\vspace*{1em}
+
+\begin{block}{Q: Language of Geodesics}
+Is there a classification of groups with ET0L language of geodesics?
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}
+\begin{center}
+	\huge
+	\vspace{2em}
+	
+	\bfseries
+	Thank You!
+\end{center}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,27 @@
+%auto-ignore
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{automata,positioning,calc}
+
+\usepackage{mathdots}
+
+\begin{document}
+\begin{tikzpicture}
+
+\node (reg) at (0,0) {\textbf{Regular}};
+\node (dcf) [right=of reg] {\textbf{Det.\@ Context-Free}};
+\node (edt0l) [above right=of dcf] {\quad\ \ EDT0L\quad};
+\node (cf) [below right=of dcf] {\textbf{Context-Free}};
+
+\node (et0l) [above right=of cf] {ET0L};
+
+\node (indexed) [right=of et0l] {Indexed};
+
+\node (cs) [right=of indexed] {Context-Sensitive};
+
+\draw[->] (reg) -- (dcf);
+\draw[->] (dcf) -- (edt0l);
+\draw[->] (dcf) -- (cf);
+
+\end{tikzpicture}
+\end{document}

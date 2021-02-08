@@ -1,0 +1,86 @@
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+\begin{tikzpicture}[>=stealth]
+
+\node [circle,draw=black] (n)  at (0,0)   {};
+
+\node [circle,draw=black] (n1) at (-4,-1) {};
+\node [circle,draw=black] (n2) at ( 4,-1) {};
+
+\node [circle,draw=black] (n11) at (-6,-2) {};
+\node [circle,draw=black] (n12) at (-2,-2) {};
+\node [circle,draw=black] (n21) at ( 2,-2) {};
+\node [circle,draw=black] (n22) at ( 6,-2) {};
+
+\node [circle,draw=black] (n111) at (-7,-3) {};
+\node [circle,draw=black] (n112) at (-5,-3) {};
+\node [circle,draw=black] (n121) at (-3,-3) {};
+\node [circle,draw=black] (n122) at (-1,-3) {};
+\node [circle,draw=black] (n211) at ( 1,-3) {};
+\node [circle,draw=black] (n212) at ( 3,-3) {};
+\node [circle,draw=black] (n221) at ( 5,-3) {};
+\node [circle,draw=black] (n222) at ( 7,-3) {};
+
+\node [circle,draw=black] (n1111) at (-7.5,-4) {};
+\node [circle,draw=black] (n1112) at (-6.5,-4) {};
+\node [circle,draw=black] (n1121) at (-5.5,-4) {};
+\node [circle,draw=black] (n1122) at (-4.5,-4) {};
+\node [circle,draw=black] (n1211) at (-3.5,-4) {};
+\node [circle,draw=black] (n1212) at (-2.5,-4) {};
+\node [circle,draw=black] (n1221) at (-1.5,-4) {};
+\node [circle,draw=black] (n1222) at (-0.5,-4) {};
+\node [circle,draw=black] (n2111) at ( 0.5,-4) {};
+\node [circle,draw=black] (n2112) at ( 1.5,-4) {};
+\node [circle,draw=black] (n2121) at ( 2.5,-4) {};
+\node [circle,draw=black] (n2122) at ( 3.5,-4) {};
+\node [circle,draw=black] (n2211) at ( 4.5,-4) {};
+\node [circle,draw=black] (n2212) at ( 5.5,-4) {};
+\node [circle,draw=black] (n2221) at ( 6.5,-4) {};
+\node [circle,draw=black] (n2222) at ( 7.5,-4) {};
+
+\draw [->] (n) to node [above left]  {1} (n1);
+\draw [->] (n) to node [above right] {2} (n2);
+
+
+\draw [->] (n1) to node [above left]  {1} (n11);
+\draw [->] (n1) to node [above right] {2} (n12);
+\draw [->] (n2) to node [above left]  {1} (n21);
+\draw [->] (n2) to node [above right] {2} (n22);
+
+
+\draw [->] (n11) to node [above left]  {1} (n111);
+\draw [->] (n11) to node [above right] {2} (n112);
+\draw [->] (n12) to node [above left]  {1} (n121);
+\draw [->] (n12) to node [above right] {2} (n122);
+\draw [->] (n21) to node [above left]  {1} (n211);
+\draw [->] (n21) to node [above right] {2} (n212);
+\draw [->] (n22) to node [above left]  {1} (n221);
+\draw [->] (n22) to node [above right] {2} (n222);
+
+\draw [->] (n111) to node [above left]  {1} (n1111);
+\draw [->] (n111) to node [above right] {2} (n1112);
+\draw [->] (n112) to node [above left]  {1} (n1121);
+\draw [->] (n112) to node [above right] {2} (n1122);
+\draw [->] (n121) to node [above left]  {1} (n1211);
+\draw [->] (n121) to node [above right] {2} (n1212);
+\draw [->] (n122) to node [above left]  {1} (n1221);
+\draw [->] (n122) to node [above right] {2} (n1222);
+\draw [->] (n211) to node [above left]  {1} (n2111);
+\draw [->] (n211) to node [above right] {2} (n2112);
+\draw [->] (n212) to node [above left]  {1} (n2121);
+\draw [->] (n212) to node [above right] {2} (n2122);
+\draw [->] (n221) to node [above left]  {1} (n2211);
+\draw [->] (n221) to node [above right] {2} (n2212);
+\draw [->] (n222) to node [above left]  {1} (n2221);
+\draw [->] (n222) to node [above right] {2} (n2222);
+
+\draw [<->, ultra thick] ($(n1)!0.5!(n11)$) to [bend right] ($(n1)!0.5!(n12)$);
+
+
+\draw [<->, ultra thick] ($(n21)!0.5!(n211)$) to [bend right] ($(n21)!0.5!(n212)$);
+
+\end{tikzpicture}	
+\end{document}
